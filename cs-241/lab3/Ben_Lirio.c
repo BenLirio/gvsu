@@ -14,18 +14,22 @@ void deleteAll (struct node *head);
 
 struct node *init()
 {
+	// Allocate memory for the head of the linked list
 	struct node* head = (struct node*) malloc(sizeof(struct node));
 	return head;
 }
 
 void insert (struct node *head, int data)
 {
+	// Allocate memory for the new node
 	struct node* newNode = (struct node*) malloc(sizeof(struct node));
 	newNode->data = data;
 	struct node* cur = head;
+	// Go to the last linked item
 	while(cur->next) {
 		cur = cur->next;
 	}
+	// Set the last item's next to the new node
 	cur->next = newNode;
 }
 
@@ -34,6 +38,7 @@ void display (struct node *head)
 	struct node * cur = head;
 	cur = cur->next;
 	while(cur) {
+		// Display each node inside
 		printf("%d\n", cur->data);
 		cur = cur->next;
 	}
@@ -46,8 +51,10 @@ void deleteAll (struct node *head)
 	while(cur->next) {
 		prev = cur;
 		cur = cur->next;
+		// Keep a reference to the prev in order to free it
 		free(prev);
 	}
+	free(cur);
 }
 
 int main()
