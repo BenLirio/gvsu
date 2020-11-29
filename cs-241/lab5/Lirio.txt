@@ -1,0 +1,43 @@
+#!/bin/bash
+
+NUM_ARGUMENTS="${#}"
+
+# task 1
+
+if [[ "${NUM_ARGUMENTS}" -eq 0 ]]
+then
+	echo "Must provide an argument"
+	exit 0
+fi
+
+if [[ "${NUM_ARGUMENTS}" -eq 1 ]]
+then
+	if [[ "${1}" = '-c' ]]
+	then
+		echo "The number of files"
+		echo "How many bytes"
+	fi
+	if [[ "${1}" = '-l' ]]
+	then
+		echo "List all the files"
+	fi
+	if [[ "${1}" = '--help' ]]
+	then
+		echo "How to run this script"
+	fi
+fi
+
+# task 2
+FILE=~/backup
+if [[ ! -d "${FILE}" ]]
+then
+	mkdir "${FILE}"
+fi
+
+# task 3
+NUM_FILES=$(ls | wc -l)
+echo "${NUM_FILES}"
+
+
+SIZE=$(du -b . | grep -Eo '[0-9]+')
+echo "${SIZE}"
