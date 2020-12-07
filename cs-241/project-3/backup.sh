@@ -1,11 +1,8 @@
 #!/bin/bash
+clear
+rm -r ~/backup
 
 BACKUP_DIR=~/backup
-FILES=""
-
-copy_files_to_backup() {
-	cp "{${FILES}} ${BACKUP_DIR}"
-}
 
 create_backup_dir() {
 	if [[ ! -d $BACKUP_DIR ]]
@@ -18,11 +15,11 @@ create_backup_dir() {
 list_files() {
 	ls $BACKUP_DIR
 }
-print_files() {
-	echo "FIXME counting files"
+print_file_count() {
+	ls -l | awk 'NR==1 { print $2 }'
 }
 print_disk_usage() {
-	echo "FIXME print disk usage"
+	du $BACKUP_DIR -a | awk '{ print $1 }' | head -n -1
 }
 print_help() {
 	echo "backup <targetFileList> [options]"
@@ -35,7 +32,7 @@ print_help() {
 handle_flag() {
 	case $1 in
 		-c)
-			print_files
+			print_file_count
 			print_disk_usage
 			;;
 		-l)
@@ -47,7 +44,12 @@ handle_flag() {
 	esac
 }
 handle_arg() {
-	FILES="${FILES},${arg}"
+	if [[ -f $1 ]]
+	then
+		cp $1 $BACKUP_DIR
+	else
+		echo "${1} does not exist!"
+	fi
 }
 
 create_backup_dir
