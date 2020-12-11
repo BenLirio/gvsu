@@ -1,4 +1,4 @@
-gvsu allendale CIS
+GVSU allendale CIS
 CIS computer science
 fall 2020 CIS241
-CIS in gvsu
+CIS in GVSU
